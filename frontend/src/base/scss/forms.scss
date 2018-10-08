@@ -1,0 +1,27 @@
+  .container {
+    margin-top: 15%;
+  }
+  .submit-btn {
+    background-color: #f6f4ff;
+    color: red;
+  }
+  .submit-btn:hover {
+    background-color: #ffc7ca;
+  }
+  .field-errors{
+    margin-top: 1%;
+    text-align: center;
+  }
+  .card {
+    //background-color: transparent;
+    //border: none;
+    opacity: 0.8;
+  }
+  select{
+    margin-left: 6%;
+    margin-bottom:10%;
+    justify-content: center;
+  }
+.label-form{
+  margin-bottom: 3%;
+}

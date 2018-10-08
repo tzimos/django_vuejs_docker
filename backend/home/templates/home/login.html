@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% load render_bundle from webpack_loader %}
+
+{% block css %}
+    {% render_bundle 'fe/login' 'css' %}
+{% endblock css %}
+
+{% block mainbody %}
+
+    <section>
+
+        <div id="login-form"></div>
+    </section>
+{% endblock mainbody %}
+
+{% block javascript %}
+    <script>
+        window.__data = {
+            "login_url":"{{ login_url }}",
+            "csrf_token":"{{ csrf_token }}"
+        }
+    </script>
+    {% render_bundle 'fe/login' 'js' %}
+{% endblock javascript %}

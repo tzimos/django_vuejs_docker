@@ -1,0 +1,52 @@
+{% extends 'base/navbar.html' %}
+{% load staticfiles %}
+{% load render_bundle from webpack_loader %}
+
+{% block css %}
+    {{ super.block }}
+    {% render_bundle 'fe/edit_task' 'css' %}
+{% endblock css %}
+
+{% block mainbody %}
+    <section class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Add a Task</h5>
+
+                        <form class="form" method="post">
+                            {% csrf_token %}
+
+                            {% for field in task_edit_form %}
+
+                                <div class="label-form form-label-group">
+                                    <label>{{ field.label }}</label>
+                                </div>
+                                {{ field }}
+                                {% if task_edit_form.errors %}
+                                    <div class="field-errors alert alert-danger">
+                                        <span>{{ field.error }}</span></div>
+                                {% endif %}
+                                <br>
+                            {% endfor %}
+
+
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase submit-btn" type="Submit">Edit</button>
+
+                            <hr class="my-4">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock mainbody %}
+
+{% block javascript %}
+    {% render_bundle 'fe/edit_task' 'js' %}
+{% endblock javascript %}

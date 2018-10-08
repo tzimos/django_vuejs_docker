@@ -1,0 +1,25 @@
+upstream backend {
+  server backend:8000;
+}
+
+upstream frontend {
+  server localhost:8080;
+}
+
+server {
+    listen 8000;
+    server_name localhost;
+    charset     utf-8;
+
+    location / {
+      proxy_pass http://backend/;
+    }
+
+
+    location /static {
+      alias /static/;
+      add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+      if_modified_since off;
+      expires off;
+    }
+}

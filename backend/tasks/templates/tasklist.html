@@ -1,0 +1,119 @@
+{% extends 'base/navbar.html' %}
+{% load staticfiles %}
+{% load render_bundle from webpack_loader %}
+
+{% block css %}
+    {{ super.block }}
+    {% render_bundle 'fe/tasklist' 'css' %}
+{% endblock css %}
+
+{% block mainbody %}
+
+    <div class="container">
+        <div class="row justify-content-start ">
+            {% for task in tasks %}
+                <div class="col-6 h-100 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Title</h5>
+                            <h6 class="card-text text-muted">{{ task.title }}</h6>
+                            <hr>
+                            <h5 class="card-title description collapse-toggle" data-toggle="collapse" role="button" href="#collapseDetails-{{ task.id }}" aria-expanded="false" aria-controls="collapseDetails">Description</h5>
+                            <div class="collapse" id="collapseDetails-{{ task.id }}">
+                                <div class="card-text text-muted">{{ task.details }}</div>
+                            </div>
+                            <hr>
+                            <h6 class="card-title">Created by</h6>
+                            <h6 class="card-text text-muted">{{ task.author }}</h6>
+                            <hr>
+                            <h6 class="card-title">Created at</h6>
+                            <h6 class="card-text text-muted">{{ task.created }}</h6>
+                            <hr>
+                            <h6 class="card-title">Due date</h6>
+                            <h6 class="card-text text-muted">
+                                {% if task.due_date %}
+                                    {{ task.due_date }}{% else %}Open
+                                {% endif %}
+                            </h6>
+                            <hr>
+                            <li class="list-group-item">Is it done?
+                                {% if task.done %}
+                                    <i class="fas fa-check"></i>{% else %}
+                                    <i class="far fa-square"></i>{% endif %}
+                            </li>
+                            <hr>
+
+                            <div class="button-box col-lg-12">
+                                {% if task.author == user %}
+                                    <form action="{% url 'tasks:edit_task' task_id=task.id %}" method="get">
+                                        <button class="card-link">
+                                            <span class="fa fa-edit"></span> Edit
+                                        </button>
+                                    </form>
+                                    <br>
+                                {% endif %}
+                                {% if task.author == user %}
+                                    <form action="{% url 'tasks:delete_task' task_id=task.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="card-link">
+                                            <span class="fa fa-trash"></span> Delete
+                                        </button>
+                                    </form>
+                                    <br>
+                                {% endif %}
+                                {% if not task.done %}
+                                    <form method="post" action="{% url 'tasks:mark_as_done' task_id=task.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="card-link">
+                                            Mark as done
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% if tasks.has_other_pages %}
+        <ul class="pagination">
+            {% if tasks.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ tasks.previous_page_number }}">&laquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;</span></li>
+            {% endif %}
+            {% for i in tasks.paginator.page_range %}
+                {% if tasks.number == i %}
+                    <li class="page-item">
+                        <a class="btn btn-primary chosen">{{ i }}</a></li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if tasks.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ tasks.next_page_number }}">&raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-link disabled">
+                    <span class="page-item">&raquo;</span></li>
+            {% endif %}
+        </ul>
+
+    {% endif %}
+
+{% endblock mainbody %}
+
+{% block javascript %}
+    {% render_bundle 'fe/tasklist' 'js' %}
+{% endblock javascript %}
