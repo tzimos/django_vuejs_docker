@@ -65,7 +65,7 @@ class SignUpForm(forms.ModelForm):
             try:
                 password_validation.validate_password(password, self.instance)
             except forms.ValidationError as error:
-                self.add_error('password2', error)
+                self.add_error('confirm_password', error)
 
     def clean(self):
         cleaned_data = self.cleaned_data

@@ -13,7 +13,10 @@ const path = require('path'),
   VueLoaderPlugin = require('vue-loader/lib/plugin'),
 
   // Cleans the created files from autoreload.
-  CleanObsoleteChunks = require('webpack-clean-obsolete-chunks');
+  CleanObsoleteChunks = require('webpack-clean-obsolete-chunks'),
+
+  UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 
 
 module.exports = {
@@ -157,14 +160,11 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
   ])
+  module.exports.optimization = {
+    minimizer:[new UglifyJsPlugin()]
+  }
 }

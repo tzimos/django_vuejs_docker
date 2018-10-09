@@ -2,7 +2,7 @@ FROM python:3.7
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE project.settings.docker_dev
+ENV DJANGO_SETTINGS_MODULE project.settings.docker_prod
 
 RUN pip install --upgrade pip
 
