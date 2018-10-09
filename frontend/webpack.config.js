@@ -55,7 +55,7 @@ module.exports = {
     // The following cleans the whole static folder in backend
     // excluded admin assets.
     new CleanWebpackPlugin(
-      ['backend/static/fe/**/*.js','backend/static/images/**'],
+      ['backend/static/fe/**/*.js'],
       {
         root: __dirname+"/../",
         watch:true,
