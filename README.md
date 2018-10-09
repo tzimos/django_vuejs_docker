@@ -23,8 +23,8 @@ At the root of the repo:
 Now in the production side you have to follow a slightly different path.
 Again at the root of the repo:
   * docker-compose -f docker-compose.prod.yml build --no-cache
-  * docker-compose -f docker-compose.yml -f docker-compose.prod.yml
-  * Done again !!!
+  * docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+  * Done
   
   We use the -f flag in order to overide everything at docker-compose.yml
   
