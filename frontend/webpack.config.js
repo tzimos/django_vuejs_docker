@@ -162,9 +162,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
+    new UglifyJsPlugin()
   ])
-  module.exports.optimization = {
-    minimizer:[new UglifyJsPlugin()]
-  }
 }
