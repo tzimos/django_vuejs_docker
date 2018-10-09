@@ -1,5 +1,5 @@
 # Tasklist Project
-*This is a demo taks list project written in django, vuejs and powered by docker.*
+*This is a demo task list project written in django, vuejs and powered by docker.*
 
 
 
