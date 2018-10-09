@@ -160,6 +160,13 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
+    new CleanWebpackPlugin(
+      ['backend/static/fe/**/*.js'],
+      {
+        root: __dirname+"/../",
+        watch:true,
+      }
+      ),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
