@@ -1,5 +1,5 @@
 # Tasklist Project
-*This is a demo taks list project written in django, vuejs and powered by docker.*
+*This is a demo task list project written in django, vuejs and powered by docker.*
 
 
 
@@ -21,6 +21,10 @@ You can make any change at the source code of Django and it will be loaded immed
 Last but not least, you can take advantage of the hot-reload that Webpack has.
 So whatever change you make at the frontend, it has an immediate impact after the browser
 autoreloads!!!
+
+You can create a **Superuser** account in dev mode by checking the box "*are you a superuser*"
+when you sign up. No need to put the command python manage.py createsuperuser on terminal.
+
 
 # Production mode:
 
