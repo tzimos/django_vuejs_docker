@@ -1,10 +1,16 @@
+"""
+.. module:: tasks.models.tasks
+   :synopsis: Task Model module.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
 class Task(models.Model):
-
     class Meta:
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
@@ -59,9 +65,8 @@ class Task(models.Model):
         null=True
     )
 
-
     def __str__(self):
         return 'Title: {title} || Author:{author}'.format(
-            title= self.title,
+            title=self.title,
             author=self.author
         )

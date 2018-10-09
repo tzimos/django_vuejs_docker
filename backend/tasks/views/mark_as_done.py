@@ -1,23 +1,30 @@
+"""
+.. module:: tasks.views.mark_as_done
+   :synopsis: View to mark a task as done.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.views import View
 
 from tasks.models import Task
 
 
-class MarkAsDoneView(LoginRequiredMixin,View):
+class MarkAsDoneView(LoginRequiredMixin, View):
 
-    def post(self,request,*args,**kwargs):
+    def post(self, request, *args, **kwargs):
         task_id = kwargs.get('task_id')
         if not task_id:
-            return HttpResponseBadRequest()
+            raise Http404()
         try:
             task = Task.objects.get(id=task_id)
         except Task.DoesNotExist:
-            return HttpResponseBadRequest()
+            raise Http404()
         except Task.MultipleObjectsReturned:
-            return HttpResponseBadRequest()
+            raise Http404()
         task.done = True
         task.done_by = self.request.user
         task.save()

@@ -1,3 +1,10 @@
+"""
+.. module:: tasks.views.create_task
+   :synopsis: Tasks Create View module.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.urls import reverse

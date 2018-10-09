@@ -1,3 +1,10 @@
+"""
+.. module:: authentication.managers.usermanager
+   :synopsis: Authentication UserManager module.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django.contrib.auth.models import BaseUserManager
 
 

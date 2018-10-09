@@ -1,5 +1,12 @@
+"""
+.. module:: tasks.views.edit_task
+   :synopsis: View to edit tasks.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, render_to_response
 from django.urls import reverse
 from django.views import View
@@ -7,19 +14,20 @@ from django.views import View
 from tasks.forms.edit_task import TaskEditForm
 from tasks.models import Task
 
+
 class TaskEditView(LoginRequiredMixin, View):
     template_name = 'edit_task.html'
 
     def get(self, request, *args, **kwargs):
         task_id = kwargs.get('task_id')
         if not task_id:
-            return HttpResponseBadRequest()
+            raise Http404()
         try:
             task = Task.objects.get(id=task_id)
         except Task.DoesNotExist:
-            return HttpResponseBadRequest()
+            raise Http404()
         except Task.MultipleObjectsReturned:
-            return HttpResponseBadRequest()
+            raise Http404()
         data = {
             'title': task.title,
             'details': task.details,
@@ -34,7 +42,7 @@ class TaskEditView(LoginRequiredMixin, View):
         task_id = kwargs.get('task_id')
         if not task_id:
             raise Http404()
-        form = TaskEditForm(data=request.POST,task_id=task_id)
+        form = TaskEditForm(data=request.POST, task_id=task_id)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('tasks:tasklist'))

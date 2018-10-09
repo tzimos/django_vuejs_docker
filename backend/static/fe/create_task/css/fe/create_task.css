@@ -1,4 +1,32 @@
-body{background-image:url(/static/images/girl_with_ballon.jpg);height:100%;background-position:unset;background-repeat:no-repeat;background-size:cover}
-.container{margin-top:15%}.submit-btn{background-color:#f6f4ff;color:red}.submit-btn:hover{background-color:#ffc7ca}.field-errors{margin-top:1%;text-align:center}.card{opacity:0.8}select{margin-left:6%;margin-bottom:10%;justify-content:center}.label-form{margin-bottom:3%}
+body {
+  background-image: url(/static/images/girl_with_ballon.jpg);
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: unset;
+  background-repeat: no-repeat;
+  background-size: cover; }
+.container {
+  margin-top: 15%; }
 
-/*# sourceMappingURL=create_task.css.map*/
+.submit-btn {
+  background-color: #f6f4ff;
+  color: red; }
+
+.submit-btn:hover {
+  background-color: #ffc7ca; }
+
+.field-errors {
+  margin-top: 1%;
+  text-align: center; }
+
+.card {
+  opacity: 0.8; }
+
+select {
+  margin-left: 6%;
+  margin-bottom: 10%;
+  justify-content: center; }
+
+.label-form {
+  margin-bottom: 3%; }

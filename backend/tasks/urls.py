@@ -1,3 +1,10 @@
+"""
+.. module:: tasks.urls
+   :synopsis: Task urls module.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django.urls import path
 
 from tasks.views.create_task import TaskCreateView
@@ -25,8 +32,8 @@ urlpatterns = [
     ),
     path(
         'task_list/done',
-         TaskListDoneView.as_view(),
-         name='done'
+        TaskListDoneView.as_view(),
+        name='done'
     ),
     path(
         'task_list/pending',

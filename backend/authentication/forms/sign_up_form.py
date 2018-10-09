@@ -13,11 +13,14 @@ from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 
-class SignUpForm(forms.ModelForm):
 
+class SignUpForm(forms.ModelForm):
+    """
+    Sign up ModelForm for the User Model
+    """
     error_messages = {
         'password_mismatch': _("The two password fields didn't match."),
-        'user_exists':_('A user with this email already exists')
+        'user_exists': _('A user with this email already exists')
     }
     password = forms.CharField(
         label=_("Password"),
@@ -43,13 +46,21 @@ class SignUpForm(forms.ModelForm):
             'email',
         )
 
-    def __init__(self,*args,**kwargs):
-        super(SignUpForm, self).__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs = {'class':'form-control'}
+            if field == 'superuser':
+                continue
+            self.fields[field].widget.attrs = {'class': 'form-control'}
+        if not settings.DEBUG:
+            self.fields.pop('superuser')
         self.user = None
 
     def clean_confirm_password(self):
+        """
+        Clean confirm_password field.
+        :return:
+        """
         password1 = self.cleaned_data.get("password")
         password2 = self.cleaned_data.get("confirm_password")
         if password1 and password2 and password1 != password2:
@@ -68,6 +79,11 @@ class SignUpForm(forms.ModelForm):
                 self.add_error('confirm_password', error)
 
     def clean(self):
+        """
+        This method provide checks in order to
+        make sure that the email provided by the user
+        is unique.
+        """
         cleaned_data = self.cleaned_data
         email = cleaned_data.get('email')
         user = None
@@ -85,6 +101,11 @@ class SignUpForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
+        """
+        In the save method we specify if the user is allowed to
+        be a superuser. It can happen only in Debug mode.
+        :return:
+        """
         user = super().save(commit=False)
         user.email = self.cleaned_data.get('email')
         user.set_password(self.cleaned_data["password"])

@@ -17,8 +17,8 @@
 {% block javascript %}
     <script>
         window.__data = {
-            "login_url":"{{ login_url }}",
-            "csrf_token":"{{ csrf_token }}"
+            "login_url": "{{ login_url }}",
+            "csrf_token": "{{ csrf_token }}"
         }
     </script>
     {% render_bundle 'fe/login' 'js' %}

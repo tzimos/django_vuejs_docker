@@ -1,14 +1,14 @@
 """
 .. module:: project.settings.base
-   :synopsis: Base settings to be inhereted to every child settings module.
+   :synopsis: Base settings to be inherited to every child settings module.
 
 .. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
 """
 import os
 
 SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR,'../../project'))
-BASE_DIR = os.path.abspath(os.path.join(PROJECT_DIR,'../../'))
+PROJECT_DIR = os.path.abspath(os.path.join(SETTINGS_DIR, '../../project'))
+BASE_DIR = os.path.abspath(os.path.join(PROJECT_DIR, '../../'))
 
 SECRET_KEY = 'cn7#i_miqx$-24zjfcc1x&3!%r+w_+6)6q2*%x2x5t$$@@2n(c'
 
@@ -63,7 +63,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -101,10 +100,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+# This is the folder that admin static files will
+# be collected by collectstatic command.
+# In this folder we have as well and the derived static
+# from frontend/src directory.
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_URL = '/static/'
 
-
-STATIC_ROOT = os.path.join(PROJECT_DIR,'static')
-STATIC_URL =  '/static/'
+# The following setting points at the webpack-stats.json,
+# which maps the static assets under the static folder, in
+# each template that we include them.
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': '',

@@ -29,23 +29,22 @@ class UserLoginForm(forms.Form):
         )
     )
 
-    def __init__(self, request=None,*args, **kwargs):
+    def __init__(self, request=None, *args, **kwargs):
         self.user = None
         self.request = request
         super(UserLoginForm, self).__init__(*args, **kwargs)
         self.sign_up_url = reverse('home:sign_up')
         self.error_dict = {
-           "check_credentials" : _("Please check the provided credentials."
-              "If you don't have an account please click "
-              "<a href=\"{url}\">here</a>".format(
-                url= self.sign_up_url
+            "check_credentials": _("Please check the provided credentials."
+                                   "If you don't have an account please click "
+                                   "<a href=\"{url}\">here</a>".format(
+                url=self.sign_up_url
             )),
-            "unknown_error":_("An error has occured, please <a href=\""
-                              "{contact_url}\">click here </a>to "
-                              "contact us".format(contact_url='#'))
+            "unknown_error": _("An error has occured, please <a href=\""
+                               "{contact_url}\">click here </a>to "
+                               "contact us".format(contact_url='#'))
 
         }
-
 
     def clean_password(self):
         """

@@ -1,5 +1,12 @@
+"""
+.. module:: tasks.forms.edit_task
+   :synopsis: Form to edit tasks.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django import forms
-from django.http import HttpResponseBadRequest
+from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from tasks.models import Task
 
@@ -41,9 +48,9 @@ class TaskEditForm(forms.ModelForm):
         try:
             task = Task.objects.get(id=self.task_id)
         except Task.DoesNotExist:
-            return HttpResponseBadRequest()
+            raise Http404()
         except Task.MultipleObjectsReturned:
-            return HttpResponseBadRequest()
+            raise Http404()
         task.title = self.cleaned_data.get('title')
         task.details = self.cleaned_data.get('details')
         task.due_date = self.cleaned_data.get('due_date')

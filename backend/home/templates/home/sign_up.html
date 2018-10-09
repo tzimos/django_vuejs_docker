@@ -9,47 +9,49 @@
 {% block mainbody %}
 
 
-<section class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card card-signin my-5">
-          <div class="card-body">
-            <h5 class="card-title text-center">Sign Up</h5>
-            <form class="form" method="post">
+    <section class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Sign Up</h5>
+                        <form class="form" method="post">
 
 
-                {% csrf_token %}
+                            {% csrf_token %}
 
-                {% if form.errors %}
+                            {% if form.non_field_errors %}
 
-                <div class="field-errors alert alert-danger"><span>{{ form.non_field_errors }}</span></div>{% endif %}
-                {% for field in form %}
+                                <div class="field-errors alert alert-danger">
+                                    <span>{{ form.non_field_errors }}</span>
+                                </div>{% endif %}
+                            {% for field in form %}
 
-              <div class="form-label-group label-form">
-                <label>{{ field.label }}</label>
-                  <div class="">{{ field }}</div>
-              </div>
-              {% if field.errors %}
+                                <div class="form-label-group label-form">
+                                    <label>{{ field.label }}</label>
+                                    <div class="">{{ field }}</div>
+                                </div>
+                                {% if field.errors %}
 
-                <div class="field-errors alert alert-danger"><span>{{ field.errors }}</span></div>
-              {% endif %}
+                                    <div class="field-errors alert alert-danger">
+                                        <span>{{ field.errors }}</span></div>
+                                {% endif %}
 
-                {% endfor %}
-              <br><br>
+                            {% endfor %}
+                            <br><br>
 
 
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase submit-btn">Submit</button>
+                            <a class="btn btn-lg btn-primary btn-block text-uppercase submit-btn" href="{% url 'home:login' %}">Cancel</a>
 
-              <button class="btn btn-lg btn-primary btn-block text-uppercase submit-btn">Submit</button>
-              <a class="btn btn-lg btn-primary btn-block text-uppercase submit-btn" href="{% url 'home:login' %}">Cancel</a>
+                            <hr class="my-4">
 
-              <hr class="my-4">
-
-            </form>
-          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
 {% endblock mainbody %}
 

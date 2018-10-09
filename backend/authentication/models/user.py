@@ -14,7 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from authentication.managers import UserManager
 
 
-class User(AbstractBaseUser,PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     """
     Custom User Model.
     """
@@ -62,8 +62,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     def get_full_name(self):
         if not self.first_name or self.last_name:
             return self.email
-        return '{} {}'.format(self.first_name,self.last_name)
-
+        return '{} {}'.format(self.first_name, self.last_name)
 
     def __str__(self):
         return self.get_full_name

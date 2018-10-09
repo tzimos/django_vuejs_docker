@@ -1,9 +1,19 @@
+"""
+.. module:: tasks.forms.create_task
+   :synopsis: Form to create tasks.
+
+.. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
+"""
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from tasks.models import Task
 
 
 class TaskCreateForm(forms.ModelForm):
+    """
+    Form to create tasks.
+    """
     class Meta:
         model = Task
         fields = (
@@ -27,14 +37,14 @@ class TaskCreateForm(forms.ModelForm):
             ),
             'due_date': forms.SelectDateWidget(
                 attrs={
-                    'required':True
+                    'required': True
                 }
             )
         }
 
-    def __init__(self,request=None,*args,**kwargs):
+    def __init__(self, request=None, *args, **kwargs):
         self.request = request
-        super(TaskCreateForm, self).__init__(*args,**kwargs)
+        super(TaskCreateForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=False):
         instance = super(TaskCreateForm, self).save(commit=True)
