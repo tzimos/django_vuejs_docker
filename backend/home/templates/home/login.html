@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load staticfiles %}
 {% load render_bundle from webpack_loader %}
-
+{% block title %}Sign in{% endblock title %}
 {% block css %}
     {% render_bundle 'fe/login' 'css' %}
 {% endblock css %}

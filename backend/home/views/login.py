@@ -1,13 +1,9 @@
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView as LoginBaseView
-from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.http import JsonResponse
+from django.shortcuts import render_to_response
 from django.urls import reverse
 from django.middleware.csrf import get_token
-from django.utils.decorators import method_decorator
-from django.utils.http import is_safe_url
-from django.views import View
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 from authentication.forms.login_form import UserLoginForm
 

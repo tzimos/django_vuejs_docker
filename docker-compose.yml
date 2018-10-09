@@ -1,6 +1,7 @@
 version: '3.6'
 
 services:
+
   db:
     container_name: 'postgres'
     image: postgres
@@ -8,6 +9,14 @@ services:
       - 5432
     volumes:
       - ./database:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    container_name: 'redis'
+    image: redis:latest
+    expose:
+      - 6379
+
   backend:
     container_name: 'backend'
     build:
@@ -29,10 +38,13 @@ services:
     depends_on:
       - db
       - frontend
+      - redis
     links:
       - db:database
       - frontend:frontend
+      - redis:redis
     restart: always
+
   frontend:
     container_name: 'frontend'
     build: ./frontend/
@@ -43,6 +55,7 @@ services:
       - ./frontend:/frontend
       - /frontend/node_modules
       - ./backend:/backend
+
   webserver:
     container_name: 'nginx'
     image: nginx:latest

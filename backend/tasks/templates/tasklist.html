@@ -1,7 +1,7 @@
 {% extends 'base/navbar.html' %}
 {% load staticfiles %}
 {% load render_bundle from webpack_loader %}
-
+{% block title %}Tasks{% endblock title %}
 {% block css %}
     {{ super.block }}
     {% render_bundle 'fe/tasklist' 'css' %}
