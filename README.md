@@ -15,6 +15,11 @@ At the root of the repo:
   * Wait for a little bit.
   * Done
  
+
+
+# Production mode:
+
+
 Now in the production side you have to follow a slightly different path.
 Again at the root of the repo:
   * docker-compose -f docker-compose.prod.yml build --no-cache
