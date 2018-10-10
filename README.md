@@ -37,6 +37,19 @@ Again at the root of the repo:
   
   We use the -f flag in order to overide everything at docker-compose.yml
   
+# Testing
+
+Backend has its own TestSuite of UnitTests.
+You can see the results of testing with the following command:
+  * docker-compose -f docker-compose.test.yml build --no-cache
+  * docker-compose -f docker-compose.test.yml up
+  
+  The results of the coverage are shown in the terminal.
+  You can also see them in your browser.
+  Just go to backend/htmlcov/index.html, open it and you have a full structure of
+  what is covered and what not.
+  
+  
 # Basic Structure
 
 * ###  Backend
