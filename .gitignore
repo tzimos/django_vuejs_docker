@@ -3,5 +3,5 @@
 node_modules/
 __pycache__/
 database/
-static/
+backend/static/
 webpack-stats.json
