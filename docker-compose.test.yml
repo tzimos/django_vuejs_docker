@@ -1,0 +1,33 @@
+version: '3.6'
+
+services:
+
+  backend:
+    container_name: 'backend'
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    command:
+      bash -c "
+              python wait_db.py &&
+              coverage run --source='.' manage.py test --exclude='./htmlcov/*'&&
+              coverage html --omit='./htmlcov/*' &&
+              coverage report"
+    volumes:
+      - ./backend:/backend
+    expose:
+      - 8000
+    environment:
+      - DJANGO_SETTINGS_MODULE:project.settings.testing
+    depends_on:
+      - db
+    links:
+      - db:database
+    restart: on-failure
+
+  db:
+    container_name: 'postgres'
+    image: postgres
+    expose:
+      - 5432
+    restart: always

@@ -5,3 +5,5 @@ __pycache__/
 database/
 backend/static/
 webpack-stats.json
+htmlcov
+*.pyc

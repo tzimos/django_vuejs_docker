@@ -1,0 +1,11 @@
+[run]
+plugins =
+    django_coverage_plugin
+omit =
+    ./htmlcov/*
+    *.html
+    **/migrations/**
+    *__init__*
+    **/settings/**
+    *apps*
+    *wsgi*

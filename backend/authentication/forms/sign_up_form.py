@@ -91,8 +91,6 @@ class SignUpForm(forms.ModelForm):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             pass
-        except User.MultipleObjectsReturned:
-            raise Http404()
         if user:
             raise forms.ValidationError(
                 self.error_messages['user_exists'],

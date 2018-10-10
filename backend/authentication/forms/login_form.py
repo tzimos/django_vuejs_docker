@@ -79,10 +79,6 @@ class UserLoginForm(forms.Form):
             raise ValidationError(
                 self.error_dict['check_credentials']
             )
-        except User.MultipleObjectsReturned:
-            raise ValidationError(
-                self.error_dict['unknown_error']
-            )
         self.confirm_login_allowed(user)
         self.user = authenticate(
             self.request, username=email, password=password

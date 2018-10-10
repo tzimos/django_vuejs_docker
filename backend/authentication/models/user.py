@@ -60,7 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def get_full_name(self):
-        if not self.first_name or self.last_name:
+        if not self.first_name or not self.last_name:
             return self.email
         return '{} {}'.format(self.first_name, self.last_name)
 
@@ -75,10 +75,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         user = None
         password = kwargs.get('password')
+        email = kwargs.get('email')
+        if not email or not password:
+            return None
+
+        # Check if user exists.
         try:
-            user = User.objects.create(**kwargs)
-            user.set_password(password)
-            user.save()
-        except IntegrityError:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
             pass
+        # If exists then return None.
+        if user:
+            return None
+
+        # Else go on and create the user.
+        user = User.objects.create(**kwargs)
+        user.set_password(password)
+        user.save()
+
         return user
