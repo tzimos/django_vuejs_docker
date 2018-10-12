@@ -28,7 +28,7 @@ class TaskCreateView(View):
             return HttpResponseRedirect(reverse('tasks:tasklist'))
         context = {'task_create_form':form}
         return render_to_response(
-            request,
+            self.template_name,
             context=context
         )
 

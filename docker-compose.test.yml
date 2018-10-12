@@ -6,7 +6,7 @@ services:
     container_name: 'backend'
     build:
       context: ./backend/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.testing
     command:
       bash -c "
               python wait_db.py &&
@@ -21,8 +21,10 @@ services:
       - DJANGO_SETTINGS_MODULE:project.settings.testing
     depends_on:
       - db
+      - redis
     links:
       - db:database
+      - redis:redis
     restart: on-failure
 
   db:
@@ -31,3 +33,9 @@ services:
     expose:
       - 5432
     restart: always
+
+  redis:
+    container_name: 'redis'
+    image: redis:latest
+    expose:
+      - 6379

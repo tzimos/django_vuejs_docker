@@ -14,6 +14,7 @@ class TaskCreateForm(forms.ModelForm):
     """
     Form to create tasks.
     """
+
     class Meta:
         model = Task
         fields = (
@@ -41,6 +42,19 @@ class TaskCreateForm(forms.ModelForm):
                 }
             )
         }
+
+    def clean(self):
+        clean_data = self.cleaned_data
+        fields = [
+            clean_data.get('title'),
+            clean_data.get('details'),
+            clean_data.get('due_date')
+        ]
+        if not all(fields):
+            raise forms.ValidationError(
+                _('Please correct the errors below')
+            )
+        return clean_data
 
     def __init__(self, request=None, *args, **kwargs):
         self.request = request

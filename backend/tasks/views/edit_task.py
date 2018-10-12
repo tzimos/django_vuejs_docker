@@ -6,7 +6,7 @@
 """
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.shortcuts import render, render_to_response
 from django.urls import reverse
 from django.views import View
@@ -26,8 +26,8 @@ class TaskEditView(LoginRequiredMixin, View):
             task = Task.objects.get(id=task_id)
         except Task.DoesNotExist:
             raise Http404()
-        except Task.MultipleObjectsReturned:
-            raise Http404()
+        if task.author != request.user:
+            return HttpResponseForbidden()
         data = {
             'title': task.title,
             'details': task.details,
@@ -42,12 +42,18 @@ class TaskEditView(LoginRequiredMixin, View):
         task_id = kwargs.get('task_id')
         if not task_id:
             raise Http404()
+        try:
+            task = Task.objects.get(id=task_id)
+        except Task.DoesNotExist:
+            raise Http404()
+        if task.author != request.user:
+            return HttpResponseForbidden()
         form = TaskEditForm(data=request.POST, task_id=task_id)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('tasks:tasklist'))
         context = {'task_edit_form': form}
         return render_to_response(
-            request,
+            template_name=self.template_name,
             context=context
         )

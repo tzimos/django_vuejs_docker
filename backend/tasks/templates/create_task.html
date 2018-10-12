@@ -18,15 +18,22 @@
                         <form class="form" method="post">
                             {% csrf_token %}
 
+                            {% if task_create_form.non_field_errors %}
+
+                                <div class="field-errors alert alert-danger">
+                                    <span>{{ task_create_form.non_field_errors }}</span>
+                                </div>
+                            {% endif %}
+
                             {% for field in task_create_form %}
 
                                 <div class="label-form form-label-group">
-                                    <label for="inputEmail">{{ field.label }}</label>
+                                    <label>{{ field.label }}</label>
                                 </div>
                                 {{ field }}
-                                {% if task_create_form.errors %}
+                                {% if field.errors %}
                                     <div class="field-errors alert alert-danger">
-                                        <span>{{ field.error }}</span></div>
+                                        <span>{{ field.errors }}</span></div>
                                 {% endif %}
                                 <br>
                             {% endfor %}

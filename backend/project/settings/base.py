@@ -83,8 +83,7 @@ CACHES = {
     }
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -117,7 +116,7 @@ USE_TZ = True
 # be collected by collectstatic command.
 # In this folder we have as well and the derived static
 # from frontend/src directory.
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, '../static')
 STATIC_URL = '/static/'
 
 # The following setting points at the webpack-stats.json,

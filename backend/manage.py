@@ -3,7 +3,7 @@ import os
 import sys
 
 if __name__ == '__main__':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.local')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.docker_prod')
     try:
         # We have to delete the .pyc files before we run the project,
         # in order to avoid to execute cached code.

@@ -72,7 +72,7 @@ class UserLoginForm(forms.Form):
         """
         clean_data = super(UserLoginForm, self).clean()
         email = clean_data.get('email')
-        password = clean_data.get('password')
+        password = self.cleaned_data.get('password')
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:

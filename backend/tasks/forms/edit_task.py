@@ -43,13 +43,13 @@ class TaskEditForm(forms.ModelForm):
     def __init__(self,task_id=None,*args,**kwargs):
         self.task_id = task_id
         super(TaskEditForm, self).__init__(*args,**kwargs)
+        for field in self.fields:
+            self.fields[field].required = True
 
     def save(self,commit=False):
         try:
             task = Task.objects.get(id=self.task_id)
         except Task.DoesNotExist:
-            raise Http404()
-        except Task.MultipleObjectsReturned:
             raise Http404()
         task.title = self.cleaned_data.get('title')
         task.details = self.cleaned_data.get('details')
