@@ -7,3 +7,4 @@ backend/static/
 webpack-stats.json
 htmlcov/
 *.pyc
+*.coverage

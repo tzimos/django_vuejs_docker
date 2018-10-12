@@ -1,5 +1,5 @@
 """
-.. module:: home.tests.views.test_tasklist_created
+.. module:: home.tests.views.tasklist.test_tasklist_created
    :synopsis: TaskListCreatedView Tests module.
 
 .. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
@@ -8,38 +8,23 @@ from random import randint
 import uuid
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase, RequestFactory
-from django.utils import timezone
 
 from tasks.models import Task
-from tasks.views.tasklist_created import TaskListCreatedAtView
+from tasks.tests.views.tasklist.base_tasklist_tastcase import \
+    BaseTaskListHelperTestCase
+from tasks.views.taskslist import TaskListCreatedAtView
 
 User = get_user_model()
 
 
-class TaskListCreatedAtViewTestCase(TestCase):
+class TaskListCreatedAtViewTestCase(BaseTaskListHelperTestCase):
 
     def setUp(self):
         super(TaskListCreatedAtViewTestCase, self).setUp()
-        self.user = User.create(
-            email='email@gmail.com',
-            password='asd@23fsffidmS'
-        )
-        for _ in range(5):
-            Task.objects.create(
-                author=self.user,
-                title=str(uuid.uuid4()),
-                details=str(uuid.uuid4()),
-                due_date=timezone.now() + timezone.timedelta(
-                    days=randint(1, 31))
-            )
-        self.request = RequestFactory()
+        task = Task.objects.first()
+        task.done = False
+        task.save()
         self.view = TaskListCreatedAtView()
-
-    def tearDown(self):
-        Task.objects.all().delete()
-        User.objects.all().delete()
-        super(TaskListCreatedAtViewTestCase, self).tearDown()
 
     def test_get_page_not_integer(self):
         """

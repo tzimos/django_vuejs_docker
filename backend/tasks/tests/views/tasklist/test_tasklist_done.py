@@ -1,39 +1,26 @@
 """
-.. module:: home.tests.views.test_tasklist_done
+.. module:: home.tests.views.tasklist.test_tasklist_done
    :synopsis: TaskListDoneView Tests module.
 
 .. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
 """
-from random import randint
-import uuid
-
 from django.contrib.auth import get_user_model
-from django.test import TestCase, RequestFactory
-from django.utils import timezone
 
 from tasks.models import Task
-from tasks.views.tasklist_done import TaskListDoneView
+from tasks.tests.views.tasklist.base_tasklist_tastcase import \
+    BaseTaskListHelperTestCase
+from tasks.views.taskslist import TaskListDoneView
 
 User = get_user_model()
 
 
-class TaskListDoneViewTestCase(TestCase):
+class TaskListDoneViewTestCase(BaseTaskListHelperTestCase):
 
     def setUp(self):
         super(TaskListDoneViewTestCase, self).setUp()
-        self.user = User.create(
-            email='email@gmail.com',
-            password='asd@23fsffidmS'
-        )
-        for _ in range(5):
-            Task.objects.create(
-                author=self.user,
-                title=str(uuid.uuid4()),
-                details=str(uuid.uuid4()),
-                due_date=timezone.now() + timezone.timedelta(
-                    days=randint(1, 31)),
-            )
-        self.request = RequestFactory()
+        for task in Task.objects.all():
+            task.done = False
+            task.save()
         self.view = TaskListDoneView()
 
     def tearDown(self):

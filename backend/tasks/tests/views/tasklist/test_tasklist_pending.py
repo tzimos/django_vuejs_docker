@@ -1,50 +1,30 @@
 """
-.. module:: home.tests.views.test_tasklist_pending
+.. module:: home.tests.views.tasklist.test_tasklist_pending
    :synopsis: TaskListPendingView Tests module.
 
 .. moduleauthor:: Panos Tzimos<tzimoss@gmail.com>
 """
 
-from random import randint
-import uuid
-
 from django.contrib.auth import get_user_model
-from django.test import TestCase, RequestFactory
-from django.utils import timezone
+from django.test import RequestFactory
 
 from tasks.models import Task
-from tasks.views.tasklist_pending import TaskListPendingView
+from tasks.tests.views.tasklist.base_tasklist_tastcase import \
+    BaseTaskListHelperTestCase
+from tasks.views.taskslist import TaskListPendingView
 
 User = get_user_model()
 
 
-class TaskListPendingViewTestCase(TestCase):
+class TaskListPendingViewTestCase(BaseTaskListHelperTestCase):
 
     def setUp(self):
         super(TaskListPendingViewTestCase, self).setUp()
-        self.user = User.create(
-            email='email@gmail.com',
-            password='asd@23fsffidmS'
-        )
-        for _ in range(5):
-            Task.objects.create(
-                author=self.user,
-                title=str(uuid.uuid4()),
-                details=str(uuid.uuid4()),
-                due_date=timezone.now() + timezone.timedelta(
-                    days=randint(1, 31)),
-                done=True
-            )
         task = Task.objects.first()
         task.done = False
         task.save()
         self.request = RequestFactory()
         self.view = TaskListPendingView()
-
-    def tearDown(self):
-        Task.objects.all().delete()
-        User.objects.all().delete()
-        super(TaskListPendingViewTestCase, self).tearDown()
 
     def test_get_page_not_integer(self):
         """

@@ -11,10 +11,10 @@ from tasks.views.create_task import TaskCreateView
 from tasks.views.delete_task import TaskDeleteView
 from tasks.views.edit_task import TaskEditView
 from tasks.views.mark_as_done import MarkAsDoneView
-from tasks.views.tasklist import TaskListView
-from tasks.views.tasklist_created import TaskListCreatedAtView
-from tasks.views.tasklist_done import TaskListDoneView
-from tasks.views.tasklist_pending import TaskListPendingView
+from tasks.views.taskslist import TaskListView
+from tasks.views.taskslist import TaskListCreatedAtView
+from tasks.views.taskslist import TaskListDoneView
+from tasks.views.taskslist import TaskListPendingView
 
 app_name = 'tasks'
 
