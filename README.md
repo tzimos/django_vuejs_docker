@@ -31,7 +31,7 @@ when you sign up. No need to put the command python manage.py createsuperuser on
 
 Now in the production side you have to follow a slightly different path.
 Again at the root of the repo:
-  * docker-compose -f docker-compose.prod.yml build --no-cache
+  * docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --no-cache
   * docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
   * Done
   
